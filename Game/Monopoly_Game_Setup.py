@@ -124,4 +124,4 @@ class CommunityChest(Tile):
         super().__init__(name)
     def landing(self, player):
         super().landing(player)
-        player.card_drawing(player.game.chance_card)
+        player.card_drawing(player.game.community_chest)
