@@ -60,7 +60,7 @@ class Player:
         pass
     def trade(self):
         pass
-    #여기서의 action 은 주인이 있을떄 가능.
+    #action happens when there is a owner.
     def action(self,land):
         if land.name == 'JAIL':
             pass
