@@ -125,4 +125,3 @@ class CommunityChest(Tile):
     def landing(self, player):
         super().landing(player)
         player.card_drawing(player.game.community_chest)
-hi
