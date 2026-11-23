@@ -35,27 +35,27 @@ class Player:
         if land.houses == 0:
             if land.hotels == 0:
                 if land.color_monopoly:
-                    self.money -= land.rent * 2
-                    land.owner.money += land.rent * 2
+                    self.money -= land.rent[0] * 2
+                    land.owner.money += land.rent[0] * 2
                 else:
-                    self.money -= land.rent
-                    land.owner.money += land.rent
+                    self.money -= land.rent[0]
+                    land.owner.money += land.rent[0]
             else:
-                self.money -= land.hotel
-                land.owner.money += land.hotel
+                self.money -= land.rent[5]
+                land.owner.money += land.rent[5]
         else:
             if land.houses == 1:
-                self.money -= land.houses1
-                land.owner.money += land.houses1
+                self.money -= land.rent[1]
+                land.owner.money += land.rent[1]
             elif land.houses == 2:
-                self.money -= land.houses2
-                land.owner.money += land.houses2
+                self.money -= land.rent[2]
+                land.owner.money += land.rent[2]
             elif land.houses == 3:
-                self.money -= land.houses3
-                land.owner.money += land.houses3
+                self.money -= land.rent[3]
+                land.owner.money += land.rent[3]
             else:
-                self.money -= land.houses4
-                land.owner.money += land.houses4
+                self.money -= land.rent[4]
+                land.owner.money += land.rent[4]
     def sell(self):
         pass
     def trade(self):
@@ -125,3 +125,4 @@ class CommunityChest(Tile):
     def landing(self, player):
         super().landing(player)
         player.card_drawing(player.game.community_chest)
+hi
