@@ -1,3 +1,4 @@
+import random
 from collections import deque
 class Game:
     def __init__(self):
@@ -5,6 +6,25 @@ class Game:
         self.chance_card = deque()
         self.community_chest = deque()
         self.players = []
+    def move_to_jail(self,player):
+        pass
+    def dice(self,player,double_count):
+        if double_count == 3:
+            self.move_to_jail(player)
+        dice1 = random.randint(1,6)
+        dice2 = random.randint(1,6)
+        print(f'You rolled {dice1} and {dice2}')
+        pass
+        if dice1 == dice2:
+            double_count += 1
+            print('You rolled a double! You get to roll again.')
+            ''' 
+            
+            actions
+
+
+            '''
+            self.dice(player,double_count)
 monopolize = {'brown':2,'lightblue':3,"pink":3,"orange":3,"red":3,"yellow":3,"green":3,"blue":2}
 class Player:
     def __init__(self, name, money, game):
@@ -84,6 +104,7 @@ class Tile:
 class PropertyTile(Tile):
     def __init__(self,name,cost,rent,houses_hotels_rent,house_cost,hotel_cost,color):
         super().__init__(name)
+        self.type = 'property'
         self.cost = cost
         self.rent = [rent]+houses_hotels_rent
         self.house_cost = house_cost
@@ -93,6 +114,14 @@ class PropertyTile(Tile):
         self.owner = None
         self.houses = 0
         self.hotels = 0
+class TaxTile(Tile):
+    def __init__(self,name,tax_amount):
+        super().__init__(name)
+        self.type = 'tax'
+        self.tax_amount = tax_amount
+    def landing(self,player):
+        super().landing(player)
+        player.money -= self.tax_amount
 class Card:
     def __init__(self,description,card_type,card_value):
         self.description = description
@@ -109,18 +138,18 @@ class Card:
         if self.card_type == 'move':
             player.position = self.card_value
             player.action(player.game.board[player.position])
-            #need some other code for special moves:
-            pass
         if self.card_type == 'keep':
             player.cards.append(self.card_value)
 class ChanceTile(Tile):
     def __init__(self, name="Chance"):
+        self.type = 'Chance'
         super().__init__(name)
     def landing(self, player):
         super().landing(player)  # "OOO landed at Chance"
         player.card_drawing(player.game.chance_card)
 class CommunityChest(Tile):
     def __init__(self, name="Community Chest"):
+        self.type = 'CommunityChest'
         super().__init__(name)
     def landing(self, player):
         super().landing(player)
